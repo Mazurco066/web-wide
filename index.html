@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <header>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </header>
+    <body>
+
+        <div id="navbar">
+            <h4>Wide Web Test</h4>
+        </div>
+
+        <div id="header">
+                <p>Click me to show the http result from: http://jsonplaceholder.typicode.com/users</p>
+                <button id="btn">Click Me :P</button> 
+                <br/>      
+                <br/> 
+        </div>
+        
+        <div id="content">
+            <table id="list">
+                
+            </table>
+        </div>
+
+        <footer>
+            <p>Developed by Gabriel Mazurco Ribeiro - 2019</p>
+        </footer>
+
+        <script>
+            $("#btn").click(() => {
+                
+                // http request
+                const httpClient = new XMLHttpRequest();
+                const url = "http://jsonplaceholder.typicode.com/users";
+                httpClient.open("GET", url);
+                httpClient.send();
+
+                // on response
+                httpClient.onreadystatechange = function() {
+                    if (this.readyState==4 && this.status == 200) { //success
+
+                        // parsing data
+                        const data = JSON.parse(httpClient.responseText);
+
+                        // formating data
+                        var rows = "<tr><th>Name</th><th>Username</th><th>E-mail</th></tr>";
+                        data.forEach(item => {
+                            rows += `<tr><td>${item.name}</td><td>${item.username}</td><td>${item.email}</td></tr>`;
+                        });
+
+                        // inserting into table
+                        document.getElementById("list").innerHTML = rows;
+
+                    } else {
+                        console.log('Error while requesting data!');
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
