@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <header>
+    <title>Wide Web Test</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
@@ -8,13 +9,10 @@
 </header>
 
 <body style="height: 100%; width: 100%; margin: 0;">
-
     <div style="height: 100%">
-
         <div class="header card-2">
             <h4>Wide Web Test</h4>
         </div>
-
         <div class="content">
             <p>Click me to show the http result from: http://jsonplaceholder.typicode.com/users</p>
             <div class="wrapper">
@@ -23,18 +21,14 @@
             <div class="wrapper">
                 <table id="list" class="table"></table>
             </div>
-
         </div>
         <footer>
             <p>Developed by Gabriel Mazurco Ribeiro - 2019</p>
             <section>Wide Commerce Challenge 2019 - FrontEnd Developer</section>
         </footer>
-
     </div>
-
     <script>
         $("#btn").click(() => {
-
             if (document.getElementById("list").innerHTML) {
                 document.getElementById("list").innerHTML = "";
             } else {
@@ -43,30 +37,23 @@
                 const url = "https://jsonplaceholder.typicode.com/users";
                 httpClient.open("GET", url);
                 httpClient.send();
-
                 // on response
                 httpClient.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) { //success
-
                         // parsing data
                         const data = JSON.parse(httpClient.responseText);
-
                         // formating data
                         var rows = "<tr class=\"card card-2\"><th>Avaliable Users Gathered from Http Request</th></tr>";
                         data.forEach(item => {
                             rows += `<tr class="card card-1"><td><img src="user.png" alt="user-image" class="profile" /></td><td class="name">Name: ${item.name}</td><td class="username">Username: ${item.username}</td><td class="email">E-mail: ${item.email}</td></tr>`;
                         });
-
                         // inserting into table
                         document.getElementById("list").innerHTML = rows;
-
                     } else {
                         console.log('Error while requesting data!');
                     }
                 }
             }
-
-
         })
     </script>
 </body>
